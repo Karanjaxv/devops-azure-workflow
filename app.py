@@ -16,7 +16,7 @@ class AppHandler(SimpleHTTPRequestHandler):
         <body style="font-family: sans-serif; text-align: center; margin-top: 10%;">
             <h1>🚀 DevOps Automated Deployment Active</h1>
             <p>Status: <strong>Online</strong></p>
-            <p>Version: <code>1.0.0</code></p>
+            <p>Version: <code>2.0.0</code></p>
         </body>
         </html>
         """

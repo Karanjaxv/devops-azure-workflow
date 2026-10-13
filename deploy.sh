@@ -1,4 +1,3 @@
-cat << 'EOF' > deploy.sh
 #!/usr/bin/env bash
 set -e
 
@@ -28,4 +27,3 @@ else
     echo "[-] Health check failed. Check app.log for details."
     exit 1
 fi
-EOF
