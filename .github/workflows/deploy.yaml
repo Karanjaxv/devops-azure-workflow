@@ -1,0 +1,39 @@
+cat << 'EOF' > .github/workflows/deploy.yaml
+name: CI/CD Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: Lint & Syntax Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run code validation
+        run: |
+          python3 -m py_compile app.py
+
+  deploy:
+    name: Deploy to Server
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Remote Deployment via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            cd ~/devops-azure-workflow
+            ./deploy.sh
+EOF
